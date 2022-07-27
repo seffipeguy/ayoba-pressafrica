@@ -1,0 +1,8 @@
+<div class="p-3">
+  <h3 class="font-semibold text-xl">Search result</h3>
+  <div class="py-3" *ngIf="headlines.length === 0">
+    <p>The results will be displayed here</p>
+  </div>
+
+  <app-miniature-headline skin="list" [idCategory]="idCategory" idHeadline="{{hl.id}}" *ngFor="let hl of headlines"></app-miniature-headline>
+</div>
