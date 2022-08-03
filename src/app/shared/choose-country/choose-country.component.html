@@ -1,0 +1,5 @@
+<ion-button (click)="presentAllCountry()" class="ion-no-padding space-x-1">
+  <img *ngIf="paySelect && paySelect.flag" [src]="paySelect ? paySelect.flag : ''" width="30px" class="inline-block" height="30px"/>
+  <ion-icon size="large" *ngIf="!paySelect || paySelect && !paySelect.flag" name="flag"></ion-icon>
+  <span>&#9660;</span>
+</ion-button>

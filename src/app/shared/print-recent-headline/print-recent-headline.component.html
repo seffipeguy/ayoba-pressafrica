@@ -1,0 +1,11 @@
+<section class="py-3">
+  <h3 class="font-semibold text-xl px-3">{{'1.1-4' | translate}}</h3>
+  <div class="p-3" *ngIf="headlines.length === 0">
+    <p>{{'1.1-9' | translate}}</p>
+  </div>
+  <ion-slides *ngIf="headlines.length > 0" class="ion-padding-vertical" pager="false" [options]="slideOptsNews">
+    <ion-slide *ngFor="let headline of headlines; let i = index" id="headline_{{headline.id}}">
+      <app-miniature-headline [idCategory]="idCategory" [idHeadline]="headline.id"></app-miniature-headline>
+    </ion-slide>
+  </ion-slides>
+</section>

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary" *ngIf="isSearch">
+    <ion-searchbar [(ngModel)]="currentSearch" (ionCancel)="isSearch = !isSearch" [placeholder]="'1.1-5' | translate" showCancelButton="always"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="!isSearch">
+    <ion-title>
+      <img src="assets/img/logo_complet.svg" class="inline-block h-9"/>
+    </ion-title>
+    <ion-buttons slot="end" class="ion-no-padding">
+      <ion-button class="ion-no-padding" (click)="isSearch = !isSearch">
+        <ion-icon name="search" size="large"></ion-icon>
+      </ion-button>
+      <app-choose-country></app-choose-country>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div>
+
+    <app-choose-category></app-choose-category>
+
+    <app-print-recent-headline *ngIf="!isSearch" idCategory="{{categorieSelect}}"></app-print-recent-headline>
+
+    <app-result-search-headline idCategory="{{categorieSelect}}" *ngIf="isSearch" texte="{{currentSearch}}"></app-result-search-headline>
+
+    <app-print-all-coverage idCategory="{{categorieSelect}}"></app-print-all-coverage>
+
+  </div>
+</ion-content>
