@@ -1,0 +1,24 @@
+<ion-header [translucent]="true" class="ion-no-border-lol">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Headline saved
+    </ion-title>
+  </ion-toolbar>
+  <ion-progress-bar color="secondary" *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+</ion-header>
+
+<ion-content>
+  <div class="p-3">
+    <h3 class="font-semibold text-xl">List of items</h3>
+    <div class="py-3" *ngIf="idHeadlines.length === 0">
+      <p>No items posted</p>
+    </div>
+  </div>
+
+  <div class="p-3">
+    <app-miniature-headline skin="list" [idHeadline]="id" *ngFor="let id of idHeadlines"></app-miniature-headline>
+  </div>
+</ion-content>

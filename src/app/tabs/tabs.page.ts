@@ -13,7 +13,7 @@ export class TabsPage implements OnInit {
 
   constructor(private storageService: StorageService, private userService: UtilisateurService, private paysService: PaysService, private translate: TranslateService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { /*
     if(localStorage.getItem('id')) {
       this.userService.getCurrentUtilisateur().then(
         (doc1) => {
@@ -27,7 +27,7 @@ export class TabsPage implements OnInit {
           }
         }
       );
-    }
+    }*/
   }
 
 }

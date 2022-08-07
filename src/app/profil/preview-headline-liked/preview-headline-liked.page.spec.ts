@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ApercuNewsPage } from './apercu-news.page';
+import { PreviewHeadlineLikedPage } from './preview-headline-liked.page';
 
-describe('ApercuNewsPage', () => {
-  let component: ApercuNewsPage;
-  let fixture: ComponentFixture<ApercuNewsPage>;
+describe('PreviewHeadlineLikedPage', () => {
+  let component: PreviewHeadlineLikedPage;
+  let fixture: ComponentFixture<PreviewHeadlineLikedPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApercuNewsPage ],
+      declarations: [ PreviewHeadlineLikedPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ApercuNewsPage);
+    fixture = TestBed.createComponent(PreviewHeadlineLikedPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

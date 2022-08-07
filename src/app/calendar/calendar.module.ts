@@ -7,15 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { CalendarPageRoutingModule } from './calendar-routing.module';
 
 import { CalendarPage } from './calendar.page';
-import {MiniatureHeadlineComponent} from "../shared/miniature-headline/miniature-headline.component";
+import {HomePageModule} from "../home/home.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CalendarPageRoutingModule
+    CalendarPageRoutingModule,
+    HomePageModule
   ],
-  declarations: [CalendarPage, MiniatureHeadlineComponent]
+  exports: [
+  ],
+  declarations: [CalendarPage]
 })
 export class CalendarPageModule {}

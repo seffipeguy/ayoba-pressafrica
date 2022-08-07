@@ -1,45 +1,45 @@
 {
-    "1": {
-        "1-1": "Home",
-		"1-2": "Saved",
-		"1-3": "Setting",
-		"1-4": "Recent",
-		"1-5": "Search",
-		"1-6": "Select your country",
-		"1-7": "Select your favorite category",
-		"1-8": "All",
-		"1-9": "No elements",
-		"1-10": "Saved"
-    },
-	"2": {
-        "2-1": "Archive",
-		"2-2": "Search",
-		"2-3": "No content for the moment",
-		"2-4": "You can bookmark newspapers",
-		"2-5": "All"
-    },
-	"3": {
-        "3-1": "Setting",
-        "3-2": "Hi"
-    },
-	"4": {
-        "4-1": "Overview",
-        "4-2": "Comments",
-        "4-3": "Write",
-        "4-4": "Your answer...",
-        "4-5": "Send",
-        "4-6": "Write...",
-        "4-7": "Report",
-        "4-8": "Spam or fraudulent content",
-        "4-9": "Pornography, vulgar",
-        "4-10": "Rude or inappropriate language",
-        "4-11": "Offensive",
-        "4-12": "Racial Discrimination",
-        "4-13": "Other"
-    },
-	"5": {
-        "4-1": "Send with success",
-        "4-2": "The article has been successfully added to the archive",
-        "4-3": "The article has been successfully removed from the archive"
-    }
+  "1": {
+    "1-1": "Home",
+    "1-2": "Saved",
+    "1-3": "Me",
+    "1-4": "Recent",
+    "1-5": "Search",
+    "1-6": "Select your country",
+    "1-7": "Select your favorite category",
+    "1-8": "All",
+    "1-9": "No elements",
+    "1-10": "Saved"
+  },
+  "2": {
+    "2-1": "Archive",
+    "2-2": "Search",
+    "2-3": "No content for the moment",
+    "2-4": "You can bookmark newspapers",
+    "2-5": "All"
+  },
+  "3": {
+    "3-1": "Setting",
+    "3-2": "Hi"
+  },
+  "4": {
+    "4-1": "Overview",
+    "4-2": "Comments",
+    "4-3": "Comment",
+    "4-4": "Your answer...",
+    "4-5": "Send",
+    "4-6": "Write...",
+    "4-7": "Report",
+    "4-8": "Spam or fraudulent content",
+    "4-9": "Pornography, vulgar",
+    "4-10": "Rude or inappropriate language",
+    "4-11": "Offensive",
+    "4-12": "Racial Discrimination",
+    "4-13": "Other"
+  },
+  "5": {
+    "4-1": "Send with success",
+    "4-2": "The article has been successfully added to the archive",
+    "4-3": "The article has been successfully removed from the archive"
+  }
 }

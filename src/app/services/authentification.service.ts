@@ -3,13 +3,14 @@ import {Utilisateur} from '../models/utilisateur';
 import firebase from 'firebase';
 import {UtilisateurService} from './utilisateur.service';
 import {PaysService} from './pays.service';
+import {ToolsService} from "./tools.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
-  constructor(private userService: UtilisateurService, private paysService: PaysService) { }
+  constructor(private toolsService: ToolsService, private userService: UtilisateurService, private paysService: PaysService) { }
 
   signInUser(email: string, password: string) {
     return new Promise<void>((resolve, reject) => {
@@ -22,6 +23,15 @@ export class AuthentificationService {
         }
       );
     });
+  }
+
+  getAnonymeId() {
+    if(localStorage.getItem('guestId')) {
+      return localStorage.getItem('guestId');
+    } else {
+      localStorage.setItem('guestId', 'guest_' + this.toolsService.generateId(17));
+      return localStorage.getItem('guestId');
+    }
   }
 
   async googleAuth() {

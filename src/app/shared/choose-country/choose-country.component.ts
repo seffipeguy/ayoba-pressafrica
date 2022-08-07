@@ -16,10 +16,11 @@ import {AlertService} from '../../services/alert.service';
 })
 export class ChooseCountryComponent implements OnInit {
 
-  inputPays = [];
+  inputPays: Pays[] = [];
   currentUser: Utilisateur;
   idPaySelect: any;
   paySelect: any;
+  isLoading = false;
 
   constructor(private alertService: AlertService, private alertController: AlertController, private translate: TranslateService, private storageService: StorageService, private authService: AuthentificationService, private userService: UtilisateurService, private paysService: PaysService) { }
 
@@ -34,18 +35,46 @@ export class ChooseCountryComponent implements OnInit {
 
     this.paysService.getPays().then(
       (data8) => {
-        for(let i=0; i<data8.length; i++) {
-          this.inputPays.push(
-            {
-              label: data8[i].name,
-              type: 'radio',
-              value: data8[i],
-              checked: this.idPaySelect === data8[i].id
-            }
-          );
-        }
+        this.inputPays = data8;
       }
     );
+  }
+
+  saveCountry(paysChoice: Pays) {
+    this.isLoading = true;
+    let txt2;
+    this.translate.get('1.1-10').subscribe((res: string) => {
+      txt2 = res;
+    });
+    if(this.idPaySelect !== paysChoice.id) {
+
+      this.translate.use(paysChoice.language.toLocaleLowerCase());
+
+      this.authService.isAuthenticated().then(
+        (result) => {
+          if(result) {
+            this.userService.getCurrentUtilisateur().then(
+              (data25) => {
+                this.userService.updateCurrentUser(data25).then(
+                  () => {
+                    this.alertService.print(txt2);
+                    this.storageService.setItem('paysSelect', paysChoice.id);
+                    this.paySelect = paysChoice;
+                    this.idPaySelect = paysChoice.id;
+                    this.isLoading = false;
+                  }
+                );
+              }
+            );
+          } else {
+            this.storageService.setItem('paysSelect', paysChoice.id);
+            this.paySelect = paysChoice;
+            this.idPaySelect = paysChoice.id;
+            this.isLoading = false;
+          }
+        }
+      );
+    }
   }
 
   async presentAllCountry() {
@@ -59,39 +88,13 @@ export class ChooseCountryComponent implements OnInit {
 
     const alert = await this.alertController.create({
       header: txt1,
+      mode: 'ios',
       buttons: [
         {
           text: 'OK',
           role: 'confirm',
-          handler: (paysChoice: Pays) => { console.log('entre porte 1');
-            if(this.idPaySelect !== paysChoice.id) { console.log('entre porte 2');
+          handler: (paysChoice: Pays) => {
 
-              localStorage.setItem('language', paysChoice.language.toLocaleLowerCase());
-              this.translate.use(paysChoice.language.toLocaleLowerCase());
-
-              this.authService.isAuthenticated().then(
-                (result) => {
-                  if(result) {
-                    this.userService.getCurrentUtilisateur().then(
-                      (data25) => {
-                        this.userService.updateCurrentUser(data25).then(
-                          () => {
-                            this.alertService.print(txt2);
-                            this.storageService.setItem('paysSelect', paysChoice.id);
-                            this.paySelect = paysChoice;
-                            this.idPaySelect = paysChoice.id;
-                          }
-                        );
-                      }
-                    );
-                  } else {
-                    this.storageService.setItem('paysSelect', paysChoice.id);
-                    this.paySelect = paysChoice;
-                    this.idPaySelect = paysChoice.id;
-                  }
-                }
-              );
-            }
           }
         }
       ],

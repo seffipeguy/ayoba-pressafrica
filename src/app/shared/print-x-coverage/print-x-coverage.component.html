@@ -2,7 +2,7 @@
 
 <ion-slides  class="ion-padding-vertical" pager="false" [options]="slideOptsNews">
   <ion-slide *ngFor="let headline of headlines; let i = index">
-    <app-miniature-headline [idCategory]="idCategory" [idHeadline]="headline.id"></app-miniature-headline>
+    <app-miniature-headline [idHeadline]="headline.id"></app-miniature-headline>
   </ion-slide>
 </ion-slides>
 

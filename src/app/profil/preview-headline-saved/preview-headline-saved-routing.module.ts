@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ApercuNewsPage } from './apercu-news.page';
+import { PreviewHeadlineSavedPage } from './preview-headline-saved.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ApercuNewsPage
+    component: PreviewHeadlineSavedPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ApercuNewsPageRoutingModule {}
+export class PreviewHeadlineSavedPageRoutingModule {}

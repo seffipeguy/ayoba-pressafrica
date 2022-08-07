@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApercuNewsPage} from '../../apercu-news/apercu-news.page';
 import {ModalController} from '@ionic/angular';
 import {HeadlineService} from '../../services/headline.service';
 import {Headline} from '../../models/headline';
@@ -23,7 +22,6 @@ export class MiniatureHeadlineComponent implements OnInit {
 
   @Input() idHeadline;
   @Input() skin = 'block';
-  @Input() idCategory;
 
   currentHedline: Headline = null;
   currentEditor: Editor = null;
@@ -33,10 +31,6 @@ export class MiniatureHeadlineComponent implements OnInit {
   constructor(private authService: AuthentificationService, private storageService: StorageService, private translate: TranslateService, private alertService: AlertService, private userService: UtilisateurService, private commentService: CommentService, private modalController: ModalController, private headlineService: HeadlineService, private editorService: EditorService) { }
 
   ngOnInit() {
-    this.idCategory = this.storageService.getItem('categorieSelect') ? this.storageService.getItem('categorieSelect') : '';
-    this.storageService.watchStorage().subscribe((data) => {
-      this.idCategory = data;
-    });
 
     this.headlineService.getHeadlineWitchId(this.idHeadline).then(
       (data) => {
@@ -137,13 +131,4 @@ export class MiniatureHeadlineComponent implements OnInit {
       }
     );
   }
-
-  async btnApercuNews(valeur: boolean) {
-    const modal = await this.modalController.create({
-      component: ApercuNewsPage,
-      componentProps: { idHeadline: this.idHeadline, scroollComment: valeur }
-    });
-    return await modal.present();
-  }
-
 }

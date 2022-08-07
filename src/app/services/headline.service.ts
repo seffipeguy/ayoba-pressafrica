@@ -9,6 +9,74 @@ export class HeadlineService {
 
   constructor() { }
 
+  async getHeadlinesMostView() {
+    return new Promise<Headline[]>((resolve, reject) => {
+      // @ts-ignore
+      firebase.firestore().collection('headlines').orderBy('vues', 'asc').onSnapshot(
+        (docRef) => {
+          const result: Headline[] = [];
+          docRef.forEach(function(doc) {
+            result.push(doc.data() as Headline);
+          });
+          resolve(result as any);
+        }, (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  async updateVueHeadlineWitchId(idHeadline: string, idUser: string) {
+    return new Promise<void>((resolve, reject) => {
+      firebase.firestore().collection('headlines').doc(idHeadline).update(
+        {
+          vues: firebase.firestore.FieldValue.arrayUnion(idUser)
+        }
+      ).then(
+        () => {
+          resolve();
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  async getHeadlineLiked(idUser: string) {
+    return new Promise<Headline[]>((resolve, reject) => {
+      // @ts-ignore
+      firebase.firestore().collection('headlines').where('likes', 'array-contains', idUser).onSnapshot(
+        (docRef) => {
+          const result: Headline[] = [];
+          docRef.forEach(function(doc) {
+            result.push(doc.data() as Headline);
+          });
+          resolve(result as any);
+        }, (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  async getHeadlineViewed(idUser: string) {
+    return new Promise<Headline[]>((resolve, reject) => {
+      // @ts-ignore
+      firebase.firestore().collection('headlines').where('vues', 'array-contains', idUser).onSnapshot(
+        (docRef) => {
+          const result: Headline[] = [];
+          docRef.forEach(function(doc) {
+            result.push(doc.data() as Headline);
+          });
+          resolve(result as any);
+        }, (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
   async getHeadlineWitchId(idHeadline: string) {
     return new Promise<Headline>((resolve, reject) => {
       firebase.firestore().collection('headlines').doc(idHeadline).get().then(

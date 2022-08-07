@@ -5,7 +5,6 @@ import {CategorieEditorService} from '../services/categorie-editor.service';
 import {PaysService} from '../services/pays.service';
 import {HeadlineService} from '../services/headline.service';
 import {EditorService} from '../services/editor.service';
-import {Pays} from '../models/pays';
 import {UtilisateurService} from '../services/utilisateur.service';
 import {Utilisateur} from '../models/utilisateur';
 import {TranslateService} from '@ngx-translate/core';
@@ -19,7 +18,6 @@ import {StorageService} from '../services/storage.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
 
   paySelect = '';
   isSearch = false;
@@ -54,15 +52,10 @@ export class HomePage implements OnInit {
         alert('Ajouter avec succes');
       });*/
     this.categorieSelect = this.storageService.getItem('categorieSelect') ? this.storageService.getItem('categorieSelect') : '';
-    this.paySelect = this.storageService.getItem('paysSelect') ? this.storageService.getItem('paysSelect') : '';
     this.storageService.watchStorage().subscribe((data) => {
       this.categorieSelect = this.storageService.getItem('categorieSelect');
-      if(this.paySelect !== this.storageService.getItem('paysSelect')) { console.log('massaaa');
-        location.reload();
-      } else { console.log('diiiidonnnn'); }
     });
 
   }
-
 
 }

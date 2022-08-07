@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PollsPageRoutingModule } from './polls-routing.module';
 
 import { PollsPage } from './polls.page';
+import {MiniaturePollComponent} from '../shared/miniature-poll/miniature-poll.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { PollsPage } from './polls.page';
     IonicModule,
     PollsPageRoutingModule
   ],
-  declarations: [PollsPage]
+  declarations: [PollsPage, MiniaturePollComponent]
 })
 export class PollsPageModule {}

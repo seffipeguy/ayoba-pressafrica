@@ -14,10 +14,7 @@ export class AppComponent {
     private translate: TranslateService
   ) {
     translate.setDefaultLang('en');
-    translate.use(localStorage.getItem('language') ? localStorage.getItem('language') : 'en');
-
-
-
+    translate.use(localStorage.getItem('language') ? localStorage.getItem('language') : translate.getBrowserLang());
     this.initializeApp();
   }
 

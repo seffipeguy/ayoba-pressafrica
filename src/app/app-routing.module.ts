@@ -7,8 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'apercu-news/:id',
-    loadChildren: () => import('./apercu-news/apercu-news.module').then( m => m.ApercuNewsPageModule)
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'poll/:id',
+    loadChildren: () => import('./preview-poll/preview-poll.module').then(m => m.PreviewPollPageModule)
+  },
+  {
+    path: 'headline/:id',
+    loadChildren: () => import('./preview-headline/preview-headline.module').then( m => m.PreviewHeadlinePageModule)
   }
 ];
 @NgModule({

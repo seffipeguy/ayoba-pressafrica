@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams, ToastController} from '@ionic/angular';
-import {HeadlineService} from '../services/headline.service';
 import {Headline} from '../models/headline';
-import {EditorService} from '../services/editor.service';
 import {Editor} from '../models/editor';
-import {CommentService} from '../services/comment.service';
 import {Comment} from '../models/comment';
-import {UtilisateurService} from '../services/utilisateur.service';
 import {Utilisateur} from '../models/utilisateur';
-import {AlertService} from '../services/alert.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {AlertService} from '../services/alert.service';
+import {ModalController, ToastController} from '@ionic/angular';
+import {UtilisateurService} from '../services/utilisateur.service';
+import {CommentService} from '../services/comment.service';
+import {EditorService} from '../services/editor.service';
+import {HeadlineService} from '../services/headline.service';
+import {AuthentificationService} from '../services/authentification.service';
 
 @Component({
-  selector: 'app-apercu-news',
-  templateUrl: './apercu-news.page.html',
-  styleUrls: ['./apercu-news.page.scss'],
+  selector: 'app-preview-headline',
+  templateUrl: './preview-headline.page.html',
+  styleUrls: ['./preview-headline.page.scss'],
 })
-export class ApercuNewsPage implements OnInit {
+export class PreviewHeadlinePage implements OnInit {
 
   isLoading = false;
   currentHeadline: Headline;
@@ -25,11 +27,13 @@ export class ApercuNewsPage implements OnInit {
   currentUser: Utilisateur = null;
   isComment = false;
   writeComment = '';
+  scrollComment = false;
 
-  constructor(private translate: TranslateService, private alertService: AlertService, private toastController: ToastController, private userService: UtilisateurService, private commentService: CommentService, private editorService: EditorService, private navParams: NavParams, private modalCtrl: ModalController, private headlineService: HeadlineService) { }
+  constructor(private router: Router, private authService: AuthentificationService, private activatedRoute: ActivatedRoute, private translate: TranslateService, private alertService: AlertService, private toastController: ToastController, private userService: UtilisateurService, private commentService: CommentService, private editorService: EditorService, private modalCtrl: ModalController, private headlineService: HeadlineService) { }
 
   ngOnInit() {
-    this.headlineService.getHeadlineWitchId(this.navParams.get('idHeadline')).then(
+    if(this.activatedRoute.snapshot.paramMap.get('id').split('?').length > 1) { this.scrollComment = true; }
+    this.headlineService.getHeadlineWitchId(this.scrollComment ? this.activatedRoute.snapshot.paramMap.get('id').split('?')[0] : this.activatedRoute.snapshot.paramMap.get('id')).then(
       (data) => {
         this.currentHeadline = data;
 
@@ -42,15 +46,25 @@ export class ApercuNewsPage implements OnInit {
         this.commentService.getComments(this.currentHeadline.id).then(
           (data2) => {
             this.currentComment = data2;
+            if(this.scrollComment) { this.scrollToElement('liste_comment'); }
           }
         );
 
-        this.userService.getCurrentUtilisateur().then(
-          (data3) => {
-            this.currentUser = data3;
-
-            if(this.navParams.get('scroollComment') === true) {
-              this.scrollToElement('liste_comment');
+        this.authService.isAuthenticated().then(
+          (result) => {
+            if(result) {
+              this.userService.getCurrentUtilisateur().then(
+                (data3) => {
+                  this.currentUser = data3;
+                  if(!this.currentHeadline.vues.includes(this.currentUser.id)) {
+                    this.headlineService.updateVueHeadlineWitchId(this.currentHeadline.id, this.currentUser.id);
+                  }
+                }
+              );
+            } else {
+              if(!this.currentHeadline.vues.includes(this.authService.getAnonymeId())) {
+                this.headlineService.updateVueHeadlineWitchId(this.currentHeadline.id, this.authService.getAnonymeId());
+              }
             }
           }
         );
@@ -61,7 +75,7 @@ export class ApercuNewsPage implements OnInit {
   getValueTraduct(texte: string) {
     let result; let result2;
     const result1 = texte.split(this.translate.currentLang + '>');
-    if(result1.length > 1) {  console.log(); result2 = result1[1].split('</' + this.translate.currentLang + '>'); }
+    if(result1.length > 1) { result2 = result1[1].split('</' + this.translate.currentLang + '>'); }
     if(result1.length > 1 && result2.length > 0) { result = result2[0]; }
     return result ? result : texte;
   }
@@ -70,11 +84,11 @@ export class ApercuNewsPage implements OnInit {
     navigator.share({
       title: this.currentHeadline.title,
       text: this.currentHeadline.content,
-      url: 'https://ayoba-news-headlines.web.app/' ,
+      url: 'https://ayoba-news-headlines.web.app/headline/' + this.currentHeadline.id,
     });
   }
 
-  scrollToElement(element: any): void { console.log(element);
+  scrollToElement(element: any): void {
     (document.getElementById(element) as HTMLElement).scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
   }
 
@@ -96,14 +110,14 @@ export class ApercuNewsPage implements OnInit {
     this.headlineService.likeHeadline(this.currentHeadline).then(
       () => {
         if(this.currentHeadline.likes.includes(this.currentUser.id))
-          {this.currentHeadline.likes.splice(this.currentHeadline.likes.indexOf(this.currentUser.id), 1);}
+        {this.currentHeadline.likes.splice(this.currentHeadline.likes.indexOf(this.currentUser.id), 1);}
         else
-          {
-            if(this.currentHeadline.disLikes.includes(this.currentUser.id)) {
-              this.dislike();
-            }
-            this.currentHeadline.likes.push(this.currentUser.id);
+        {
+          if(this.currentHeadline.disLikes.includes(this.currentUser.id)) {
+            this.dislike();
           }
+          this.currentHeadline.likes.push(this.currentUser.id);
+        }
       }
     );
   }
@@ -154,14 +168,6 @@ export class ApercuNewsPage implements OnInit {
         this.alertService.print(tmpCurrentUser.archives.includes(this.currentHeadline.id) ? txt1 : txt2);
       }
     );
-  }
-
-  dismissModal() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalCtrl.dismiss({
-      dismissed: true
-    });
   }
 
 }

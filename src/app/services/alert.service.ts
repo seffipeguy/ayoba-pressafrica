@@ -13,7 +13,7 @@ export class AlertService {
       message: texte,
       duration: 2000,
       position: 'top',
-      translucent: true
+      translucent: false
     });
     await toast.present();
   }

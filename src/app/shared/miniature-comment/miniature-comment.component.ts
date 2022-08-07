@@ -6,7 +6,8 @@ import {UtilisateurService} from '../../services/utilisateur.service';
 import {AlertController} from '@ionic/angular';
 import {AlertService} from '../../services/alert.service';
 import {Report} from '../../models/report';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
+import {AuthentificationService} from "../../services/authentification.service";
 
 @Component({
   selector: 'app-miniature-comment',
@@ -22,7 +23,7 @@ export class MiniatureCommentComponent implements OnInit {
   reponseComment: Comment[] = [];
   currentUser: Utilisateur;
 
-  constructor(private translate: TranslateService, private alertService: AlertService, private alertController: AlertController, private commentService: CommentService, private userService: UtilisateurService) { }
+  constructor(private authService: AuthentificationService, private translate: TranslateService, private alertService: AlertService, private alertController: AlertController, private commentService: CommentService, private userService: UtilisateurService) { }
 
   ngOnInit() {
     this.commentService.getCommentWitchId(this.idComment).then(
@@ -43,9 +44,15 @@ export class MiniatureCommentComponent implements OnInit {
       }
     );
 
-    this.userService.getCurrentUtilisateur().then(
-      (data3) => {
-        this.currentUser = data3;
+    this.authService.isAuthenticated().then(
+      (result) => {
+        if(result) {
+          this.userService.getCurrentUtilisateur().then(
+            (data3) => {
+              this.currentUser = data3;
+            }
+          );
+        }
       }
     );
   }

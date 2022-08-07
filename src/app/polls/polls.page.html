@@ -1,9 +1,29 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>polls</ion-title>
+  <ion-toolbar color="primary" *ngIf="isSearch">
+    <ion-searchbar (ionInput)="filterListTransaction($event)" [placeholder]="'Search'" (ionCancel)="isSearch = !isSearch" showCancelButton="always"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="!isSearch">
+    <ion-buttons slot="start">
+      <img src="assets/img/logo_symbole.svg" class="inline-block h-9 pl-4"/>
+    </ion-buttons>
+    <ion-title>Polls</ion-title>
+    <ion-buttons slot="end" class="ion-no-padding">
+      <ion-button class="ion-no-padding" (click)="isSearch = !isSearch">
+        <ion-icon name="search" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="p-3">
+    <h3 class="font-semibold text-xl">List of polls</h3>
+    <div class="py-3" *ngIf="pools.length === 0">
+      <p>No pools for now, please come back later</p>
+    </div>
+  </div>
 
+  <div class="p-3">
+    <app-miniature-poll idPoll="{{poll.id}}" *ngFor="let poll of pools"></app-miniature-poll>
+  </div>
 </ion-content>

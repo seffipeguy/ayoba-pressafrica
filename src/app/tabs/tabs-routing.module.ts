@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../calendar/calendar.module').then(m => m.CalendarPageModule)
       },
       {
+        path: 'polls',
+        loadChildren: () => import('../polls/polls.module').then(m => m.PollsPageModule)
+      },
+      {
         path: 'topics',
         loadChildren: () => import('../topics/topics.module').then(m => m.TopicsPageModule)
       },

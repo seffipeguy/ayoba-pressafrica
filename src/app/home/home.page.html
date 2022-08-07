@@ -16,15 +16,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div>
+  <app-choose-category></app-choose-category>
 
-    <app-choose-category></app-choose-category>
+  <app-print-recent-headline *ngIf="!isSearch" idCategory="{{categorieSelect}}"></app-print-recent-headline>
 
-    <app-print-recent-headline *ngIf="!isSearch" idCategory="{{categorieSelect}}"></app-print-recent-headline>
+  <app-result-search-headline idCategory="{{categorieSelect}}" *ngIf="isSearch" texte="{{currentSearch}}"></app-result-search-headline>
 
-    <app-result-search-headline idCategory="{{categorieSelect}}" *ngIf="isSearch" texte="{{currentSearch}}"></app-result-search-headline>
-
-    <app-print-all-coverage idCategory="{{categorieSelect}}"></app-print-all-coverage>
-
-  </div>
+  <app-print-all-coverage idCategory="{{categorieSelect}}"></app-print-all-coverage>
 </ion-content>

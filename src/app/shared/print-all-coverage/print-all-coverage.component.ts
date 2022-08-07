@@ -15,7 +15,6 @@ export class PrintAllCoverageComponent implements OnInit, OnChanges {
   listeAllCoverage: Coverage[] = [];
   idCat = '';
 
-
   constructor(private coverageService: CoverageService, private editorService: EditorService) {
   }
 
