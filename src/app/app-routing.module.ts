@@ -17,6 +17,14 @@ const routes: Routes = [
   {
     path: 'headline/:id',
     loadChildren: () => import('./preview-headline/preview-headline.module').then( m => m.PreviewHeadlinePageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+  },
+  {
+    path: 'search/:texte',
+    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
   }
 ];
 @NgModule({

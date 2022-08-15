@@ -8,6 +8,7 @@ import { PreviewHeadlineViewedPageRoutingModule } from './preview-headline-viewe
 
 import { PreviewHeadlineViewedPage } from './preview-headline-viewed.page';
 import {HomePageModule} from "../../home/home.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {HomePageModule} from "../../home/home.module";
         FormsModule,
         IonicModule,
         PreviewHeadlineViewedPageRoutingModule,
-        HomePageModule
+        HomePageModule,
+        TranslateModule
     ],
   declarations: [PreviewHeadlineViewedPage]
 })

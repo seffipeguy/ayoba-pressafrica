@@ -1,7 +1,7 @@
 <div class="py-5 px-3 max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" *ngIf="skin === 'block' && currentHedline && currentEditor">
-  <div routerLink="../../headline/{{idHeadline}}" class="h-60 max-w-full overflow-auto overscroll-y-none overscroll-x-none overscroll-none justify-center">
+  <a href="headline/{{idHeadline}}" class="block h-60 max-w-full overflow-auto overscroll-y-none overscroll-x-none overscroll-none justify-center">
     <img class="rounded-t-lg inline-flex" [src]="currentHedline && currentHedline.image ? currentHedline.image : '...'" alt="Loading...">
-  </div>
+  </a>
   <div routerLink="../../headline/{{idHeadline}}" class="grid grid-cols-2 text-gray-500 py-1">
     <small class="ion-text-left truncate">{{getValueTraduct(currentHedline.title)}}</small>
     <small class="ion-text-right truncate">{{currentHedline.dateParution | date : 'd/M/yy'}}</small>
@@ -15,7 +15,7 @@
         <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
       </svg>
     </ng-container>
-    <div routerLink="../../headline/{{idHeadline}}" class="grid grid-cols-1">
+    <div routerLink="../../search/{{currentEditor.id}}" class="grid grid-cols-1">
       <span class="text-gray-800 text-sm font-semibold truncate">{{getValueTraduct(currentEditor.name)}}</span>
     </div>
   </div>
@@ -53,9 +53,9 @@
 
 <div *ngIf="skin === 'list' && currentHedline && currentEditor" class="mb-3 p-2 max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
   <div class="flex">
-    <div class="w-1/3 bg-cover bg-landscape" routerLink="../../headline/{{idHeadline}}">
+    <a class="w-1/3 bg-cover bg-landscape block" href="headline/{{idHeadline}}">
       <img class="rounded-lg" [src]="currentHedline && currentHedline.image ? currentHedline.image : '...'" alt="Loading...">
-    </div>
+    </a>
     <div class="w-2/3 p-4">
       <div class="flex items-center ion-align-items-center mb-2" *ngIf="currentEditor">
         <ng-container *ngIf="currentUser">
@@ -66,7 +66,7 @@
             <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
           </svg>
         </ng-container>
-        <span class="text-gray-500 text-sm truncate" routerLink="../../headline/{{idHeadline}}">{{currentEditor.name}}</span>
+        <a class="text-gray-500 text-sm truncate" routerLink="../../search/{{currentEditor.id}}">{{currentEditor.name}}</a>
       </div>
       <div routerLink="../../headline/{{idHeadline}}" class="text-gray-900 text-xl">
         {{getValueTraduct(currentHedline.title)}}
@@ -96,13 +96,13 @@
         <svg routerLink="../../headline/{{idHeadline}}" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <span class="flex items-center ml-5 items-center text-gray-500" routerLink="../../headline/{{idHeadline}}?comment">
+        <span class="flex items-center ml-5 items-center text-gray-500 text-sm" routerLink="../../headline/{{idHeadline}}?comment">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
           {{currentComment.length}}
         </span>
-        <span class="flex items-center ml-5 items-center text-gray-500" routerLink="../../headline/{{idHeadline}}?comment">
+        <span class="flex items-center ml-5 items-center text-gray-500 text-sm" routerLink="../../headline/{{idHeadline}}?comment">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
@@ -110,8 +110,33 @@
         </span>
       </div>
     </div>
-
   </div>
-
 </div>
 
+<div *ngIf="!currentHedline && skin === 'list'" role="status" class="mb-3 p-2 max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="flex">
+    <div class="w-1/3 flex justify-center items-center bg-gray-300 rounded dark:bg-gray-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+      </svg>
+    </div>
+    <div class="w-2/3 p-4">
+      <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!currentHedline && skin === 'block'" role="status" class="py-5 px-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <div class="flex justify-center items-center mb-4 h-48 bg-gray-300 rounded dark:bg-gray-700">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-60 max-w-full text-gray-200 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+    </svg>
+  </div>
+  <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+</div>

@@ -8,15 +8,17 @@ import { PreviewHeadlineSavedPageRoutingModule } from './preview-headline-saved-
 
 import { PreviewHeadlineSavedPage } from './preview-headline-saved.page';
 import {HomePageModule} from "../../home/home.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PreviewHeadlineSavedPageRoutingModule,
-    HomePageModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PreviewHeadlineSavedPageRoutingModule,
+        HomePageModule,
+        TranslateModule
+    ],
   declarations: [PreviewHeadlineSavedPage]
 })
 export class PreviewHeadlineSavedPageModule {}

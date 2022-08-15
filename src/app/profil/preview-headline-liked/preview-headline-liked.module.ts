@@ -8,6 +8,7 @@ import { PreviewHeadlineLikedPageRoutingModule } from './preview-headline-liked-
 
 import { PreviewHeadlineLikedPage } from './preview-headline-liked.page';
 import {HomePageModule} from '../../home/home.module';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {HomePageModule} from '../../home/home.module';
         FormsModule,
         IonicModule,
         PreviewHeadlineLikedPageRoutingModule,
-        HomePageModule
+        HomePageModule,
+        TranslateModule
     ],
   declarations: [PreviewHeadlineLikedPage]
 })

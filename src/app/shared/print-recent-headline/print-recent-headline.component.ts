@@ -33,13 +33,15 @@ export class PrintRecentHeadlineComponent implements OnInit, OnChanges {
         const pointe = this;
         this.listAllHeadline = data;
         this.listAllHeadline.forEach(function(doc) {
-          pointe.filtreHeadline(doc.idEditor).then(
-            (result) => {
-              if(result) {
-                pointe.headlines.push(doc);
+          if(doc.idEditor) {
+            pointe.filtreHeadline(doc.idEditor).then(
+              (result) => {
+                if(result) {
+                  pointe.headlines.push(doc);
+                }
               }
-            }
-          );
+            );
+          }
         });
       }
     );

@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
+        path: 'newspapers',
+        loadChildren: () => import('../editor/editor.module').then(m => m.EditorPageModule)
+      },
+      {
         path: 'calendar',
         loadChildren: () => import('../calendar/calendar.module').then(m => m.CalendarPageModule)
       },

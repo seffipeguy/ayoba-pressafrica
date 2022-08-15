@@ -1,8 +1,17 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@font-face {
+  font-family: AppFont;
+  src: url("../assets/font/corporate/Corporate S Light Regular.otf");
+}
+
 /** Ionic CSS Variables **/
 :root {
+
+  --ion-font-family: "AppFont", sans-serif !important;
+  font-family: "AppFont", sans-serif !important;
+
   --ion-color-primary: #fcb831;
   --ion-color-primary-rgb: 252,184,49;
   --ion-color-primary-contrast: #000000;

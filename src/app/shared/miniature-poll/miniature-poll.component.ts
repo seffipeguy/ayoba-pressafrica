@@ -19,6 +19,7 @@ export class MiniaturePollComponent implements OnInit {
   oldReponse = -2;
   reponse = -1;
   currentUser: Utilisateur = null;
+  currentGuest = '';
 
   constructor(private translate: TranslateService, private authService: AuthentificationService, private pollService: PollService, private userService: UtilisateurService, private router: Router) { }
 
@@ -48,6 +49,22 @@ export class MiniaturePollComponent implements OnInit {
                   this.reponse = this.oldReponse;
                 }
               );
+            } else {
+              this.currentGuest = this.authService.getAnonymeId();
+              if(this.currentPoll.choice1.includes(this.authService.getAnonymeId())) {
+                this.oldReponse = 0;
+              } else if(this.currentPoll.choice2.includes(this.authService.getAnonymeId())) {
+                this.oldReponse = 1;
+              } else if(this.currentPoll.choice3.includes(this.authService.getAnonymeId())) {
+                this.oldReponse = 2;
+              } else if(this.currentPoll.choice4.includes(this.authService.getAnonymeId())) {
+                this.oldReponse = 3;
+              } else if(this.currentPoll.choice2.includes(this.authService.getAnonymeId())) {
+                this.oldReponse = 4;
+              } else {
+                this.oldReponse = -1;
+              }
+              this.reponse = this.oldReponse;
             }
           }
         );
@@ -57,8 +74,8 @@ export class MiniaturePollComponent implements OnInit {
 
   getValueTraduct(texte: string) {
     let result; let result2;
-    const result1 = texte.split(this.translate.currentLang + '>');
-    if(result1.length > 1) {  console.log(); result2 = result1[1].split('</' + this.translate.currentLang + '>'); }
+    const result1 = texte.split((this.translate.currentLang ? this.translate.currentLang : 'en') + '>');
+    if(result1.length > 1) { result2 = result1[1].split('</'); }
     if(result1.length > 1 && result2.length > 0) { result = result2[0]; }
     return result ? result : texte;
   }
@@ -68,38 +85,39 @@ export class MiniaturePollComponent implements OnInit {
   }
 
   saveResponse() {
+    const tmpIdSave = this.currentUser ? this.currentUser.id : this.authService.getAnonymeId();
     this.cleanAllChoice();
     switch (this.reponse) {
       case 0:
-        this.currentPoll.choice1.push(this.currentUser.id);
+        this.currentPoll.choice1.push(tmpIdSave);
         break;
       case 1:
-        this.currentPoll.choice2.push(this.currentUser.id);
+        this.currentPoll.choice2.push(tmpIdSave);
         break;
       case 2:
-        this.currentPoll.choice3.push(this.currentUser.id);
+        this.currentPoll.choice3.push(tmpIdSave);
         break;
       case 3:
-        this.currentPoll.choice4.push(this.currentUser.id);
+        this.currentPoll.choice4.push(tmpIdSave);
         break;
       case 4:
-        this.currentPoll.choice5.push(this.currentUser.id);
+        this.currentPoll.choice5.push(tmpIdSave);
         break;
     }
     this.pollService.updatePoll(this.currentPoll).then(
       () => {
         this.oldReponse = this.reponse;
-        this.router.navigate(['polls/' + this.currentPoll.id]);
+        this.router.navigate(['poll/' + this.currentPoll.id]);
       }
     );
   }
 
   cleanAllChoice() {
-    this.currentPoll.choice1.slice(this.currentPoll.choice1.indexOf(this.currentUser.id), 1);
-    this.currentPoll.choice2.slice(this.currentPoll.choice2.indexOf(this.currentUser.id), 1);
-    this.currentPoll.choice3.slice(this.currentPoll.choice3.indexOf(this.currentUser.id), 1);
-    this.currentPoll.choice4.slice(this.currentPoll.choice4.indexOf(this.currentUser.id), 1);
-    this.currentPoll.choice5.slice(this.currentPoll.choice5.indexOf(this.currentUser.id), 1);
+    this.currentPoll.choice1.slice(this.currentPoll.choice1.indexOf(this.currentUser ? this.currentUser.id : this.currentGuest), 1);
+    this.currentPoll.choice2.slice(this.currentPoll.choice2.indexOf(this.currentUser ? this.currentUser.id : this.currentGuest), 1);
+    this.currentPoll.choice3.slice(this.currentPoll.choice3.indexOf(this.currentUser ? this.currentUser.id : this.currentGuest), 1);
+    this.currentPoll.choice4.slice(this.currentPoll.choice4.indexOf(this.currentUser ? this.currentUser.id : this.currentGuest), 1);
+    this.currentPoll.choice5.slice(this.currentPoll.choice5.indexOf(this.currentUser ? this.currentUser.id : this.currentGuest), 1);
   }
 
 }

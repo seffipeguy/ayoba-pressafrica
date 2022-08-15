@@ -30,6 +30,7 @@ export class PrintXCoverageComponent implements OnInit, OnChanges {
     slidesOffsetBefore:10,
     slidesOffsetAfter:10
   };
+  cmp = 0;
 
   constructor(private storageService: StorageService, private translate: TranslateService, private headlineService: HeadlineService, private coverageService: CoverageService, private editorService: EditorService) { }
 
@@ -37,24 +38,27 @@ export class PrintXCoverageComponent implements OnInit, OnChanges {
     this.coverageService.getCoverageWitchId(this.idCoverage).then(
       (data) => {
         this.currentCoverage = data;
-      }
-    );
-
-    this.editorService.getEditorsWitchIdCoverage(this.idCoverage).then(
-      (data1) => {
-        this.listeEditor = data1;
-        const pointe = this;
-        data1.forEach(function(doc) {
-          if ((pointe.idCategory === '' || doc.idCategory === pointe.idCategory) && (!pointe.storageService.getItem('paysSelect') || doc.idCountry.includes(pointe.storageService.getItem('paysSelect')))) {
-            pointe.headlineService.getHeadlinesWitchIdEditor(doc.id).then(
-              (data2) => {
-                data2.forEach(function(doc2) {
-                  pointe.headlines.push(doc2);
-                });
-              }
-            );
-          }
-        });
+        if(this.cmp === 0) {
+          this.cmp++;
+          this.editorService.getEditorsWitchIdCoverage(this.idCoverage).then(
+            (data1) => {
+              this.listeEditor = [];
+              this.listeEditor = data1;
+              const pointe = this;
+              this.listeEditor.forEach(function (doc) {
+                if ((pointe.idCategory === '' || doc.idCategory === pointe.idCategory) && (!pointe.storageService.getItem('paysSelect') || doc.idCountry.includes(pointe.storageService.getItem('paysSelect')))) {
+                  pointe.headlineService.getHeadlinesWitchIdEditor(doc.id, 1).then(
+                    (data2) => {
+                      data2.forEach(function (doc2) {
+                        pointe.headlines.push(doc2);
+                      });
+                    }
+                  );
+                }
+              });
+            }
+          );
+        }
       }
     );
   }

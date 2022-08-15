@@ -8,13 +8,13 @@
 
 <ion-popover trigger="btn-choose-country" side="left" alignment="start">
   <ng-template>
-    <ion-content class="ion-padding">
+    <ion-content>
       <ion-list>
         <ion-list-header class="{{isLoading ? 'animate-pulse' : ''}}"> {{'1.1-6' | translate}} </ion-list-header>
 
         <ion-item [disabled]="isLoading" routerLink="{{null}}" (click)="saveCountry(pays)" lines="none" *ngFor="let pays of inputPays">
-          <ion-avatar slot="start">
-            <img src="{{pays.flag}}" class="h-10 w-10"/>
+          <ion-avatar slot="start" class="h-7 w-7">
+            <img src="{{pays.flag}}"/>
           </ion-avatar>
           <ion-label>
             <h2 [class]="pays.id === idPaySelect ? 'text-orange-600 font-bold' : ''">{{pays.name}}</h2>

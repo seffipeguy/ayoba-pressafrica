@@ -65,8 +65,8 @@ export class MiniatureHeadlineComponent implements OnInit {
 
   getValueTraduct(texte: string) {
     let result; let result2;
-    const result1 = texte.split(this.translate.currentLang + '>');
-    if(result1.length > 1) {  console.log(); result2 = result1[1].split('</'); }
+    const result1 = texte.split((this.translate.currentLang ? this.translate.currentLang : 'en') + '>');
+    if(result1.length > 1) { result2 = result1[1].split('</'); }
     if(result1.length > 1 && result2.length > 0) { result = result2[0]; }
     return result ? result : texte;
   }

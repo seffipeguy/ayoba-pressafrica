@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import {Editor} from '../models/editor';
+import {EditorType} from "../models/editorType";
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,9 @@ export class EditorService {
       firebase.firestore().collection('editors').where('idCoverage', '==', idCoverage).onSnapshot(
         (docRef) => {
           const result: Editor[] = [];
-          docRef.forEach(function(doc) {
-            result.push(doc.data() as Editor);
-          });
+          for(let a=0; a<docRef.docs.length; a++) {
+            result.push(docRef.docs[a].data() as Editor);
+          }
           resolve(result as any);
         }, (error) => {
           reject(error);
@@ -47,6 +48,23 @@ export class EditorService {
           const result: Editor[] = [];
           docRef.forEach(function(doc) {
             result.push(doc.data() as Editor);
+          });
+          resolve(result as any);
+        }, (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  async getTypeEditors() {
+    return new Promise<EditorType[]>((resolve, reject) => {
+      // @ts-ignore
+      firebase.firestore().collection('editorsType').orderBy('priorite', 'asc').onSnapshot(
+        (docRef) => {
+          const result: EditorType[] = [];
+          docRef.forEach(function(doc) {
+            result.push(doc.data() as EditorType);
           });
           resolve(result as any);
         }, (error) => {

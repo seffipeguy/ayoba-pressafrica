@@ -4,6 +4,7 @@ import {UtilisateurService} from '../services/utilisateur.service';
 import {AlertService} from '../services/alert.service';
 import {AlertController} from '@ionic/angular';
 import {AuthentificationService} from '../services/authentification.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profil',
@@ -15,7 +16,7 @@ export class ProfilPage implements OnInit {
   isLoading = true;
   user: Utilisateur | any = null;
 
-  constructor(private alertService: AlertService, private userService: UtilisateurService, private alertController: AlertController, private authService: AuthentificationService) {}
+  constructor(private translate: TranslateService, private alertService: AlertService, private userService: UtilisateurService, private alertController: AlertController, private authService: AuthentificationService) {}
 
   ngOnInit(): void {
     this.authService.isAuthenticated().then(
@@ -46,12 +47,17 @@ export class ProfilPage implements OnInit {
   }
 
   async confirmDeconnexion() {
+    let txt1; let txt2; let txt3;
+    this.translate.get('10.12').subscribe((res: string) => { txt1 = res; });
+    this.translate.get('10.13').subscribe((res: string) => { txt2 = res; });
+    this.translate.get('10.14').subscribe((res: string) => { txt3 = res; });
+
     const alert = await this.alertController.create({
-      header: 'Confirmation',
-      message: 'Do you really want to disconnect ?',
+      header: txt1,
+      message: txt2,
       buttons: [
         {
-          text: 'CANCEL',
+          text: txt3,
           role: 'cancel',
           cssClass: 'secondary'
         }, {

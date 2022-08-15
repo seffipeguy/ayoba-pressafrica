@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {PollService} from "../services/poll.service";
+import {PaysService} from "../services/pays.service";
+import {AuthentificationService} from "../services/authentification.service";
+import {UtilisateurService} from "../services/utilisateur.service";
+import {Utilisateur} from "../models/utilisateur";
 
 @Component({
   selector: 'app-polls',
@@ -11,8 +15,9 @@ export class PollsPage implements OnInit {
   isSearch = false;
   pools: any[] = [];
   loadedListPolls: any[];
+  currentUser: Utilisateur = null;
 
-  constructor(private pollSevice: PollService) { }
+  constructor(private pollSevice: PollService, private authService: AuthentificationService, private userService: UtilisateurService) { }
 
   ngOnInit() {
     /*
@@ -23,9 +28,31 @@ export class PollsPage implements OnInit {
     );
     */
 
+    this.authService.isAuthenticated().then(
+      (result1) => {
+        if(result1) {
+          this.userService.getCurrentUtilisateur().then(
+            (result2) => {
+              this.currentUser = result2;
+            }
+          );
+        } else {
+
+        }
+      }
+    );
+
     this.pollSevice.getPolls().then(
       (data) => {
-        this.pools = data;
+        for(let i=0; i<data.length; i++) {
+          if(localStorage.getItem('paysSelect')) {
+            if(data[i].idCountry.includes(localStorage.getItem('paysSelect'))) {
+              this.pools.push(data[i]);
+            }
+          } else {
+            this.pools.push(data[i]);
+          }
+        }
         this.loadedListPolls = this.pools;
       }
     );

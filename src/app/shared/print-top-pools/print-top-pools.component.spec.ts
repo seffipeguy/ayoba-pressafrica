@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { InitialisationPage } from './initialisation.page';
+import { PrintTopPoolsComponent } from './print-top-pools.component';
 
-describe('InitialisationPage', () => {
-  let component: InitialisationPage;
-  let fixture: ComponentFixture<InitialisationPage>;
+describe('PrintTopPoolsComponent', () => {
+  let component: PrintTopPoolsComponent;
+  let fixture: ComponentFixture<PrintTopPoolsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ InitialisationPage ],
+      declarations: [ PrintTopPoolsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InitialisationPage);
+    fixture = TestBed.createComponent(PrintTopPoolsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -83,8 +83,8 @@ export class PreviewHeadlinePage implements OnInit {
   shared() {
     navigator.share({
       title: this.currentHeadline.title,
-      text: this.currentHeadline.content,
-      url: 'https://ayoba-news-headlines.web.app/headline/' + this.currentHeadline.id,
+      text: '',
+      url: 'https://ayoba-news-headlines.web.app/headline/' + this.currentHeadline.id
     });
   }
 

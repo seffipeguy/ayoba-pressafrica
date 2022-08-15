@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { UpdateProfilPageRoutingModule } from './update-profil-routing.module';
+import { EditorPageRoutingModule } from './editor-routing.module';
 
-import { UpdateProfilPage } from './update-profil.page';
+import { EditorPage } from './editor.page';
+import {HomePageModule} from "../home/home.module";
 import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
@@ -14,9 +15,10 @@ import {TranslateModule} from "@ngx-translate/core";
         CommonModule,
         FormsModule,
         IonicModule,
-        UpdateProfilPageRoutingModule,
+        EditorPageRoutingModule,
+        HomePageModule,
         TranslateModule
     ],
-  declarations: [UpdateProfilPage]
+  declarations: [EditorPage]
 })
-export class UpdateProfilPageModule {}
+export class EditorPageModule {}

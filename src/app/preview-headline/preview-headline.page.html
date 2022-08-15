@@ -13,14 +13,96 @@
   <ion-progress-bar color="secondary" *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 </ion-header>
 
-<ion-content (click)="isComment = false">
+
+<div *ngIf="!currentHeadline || !currentEditor" role="status" class="p-4 space-y-4 max-w-md divide-y divide-gray-200 animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center pt-4">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center pt-4">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center pt-4">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <div class="flex justify-between items-center pt-4">
+    <div>
+      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+    </div>
+    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+  </div>
+  <span class="sr-only">Loading...</span>
+</div>
+
+<ion-content (click)="isComment = false" *ngIf="currentHeadline && currentEditor">
   <section class="m-5 border border-gray-300">
     <img [src]="currentHeadline && currentHeadline.image ? currentHeadline.image : '...'">
   </section>
 
   <section class="mx-5">
     <h3 class="text-2xl text-gray-600">
-      {{currentEditor ? currentEditor.name : '...'}}
+      <a routerLink="../../search/{{currentEditor.id}}">{{currentEditor ? currentEditor.name : '...'}} </a>
       <ng-container>
         <svg (click)="likeCurrentEditor()" *ngIf="currentUser && !currentUser.editorsLikes.includes(currentEditor.id)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -37,7 +119,7 @@
     <small class="ion-text-left truncate text-gray-600">{{currentHeadline ? getValueTraduct(currentHeadline.title) : '...'}}</small>
     <p class="text-gray-500 py-3" [innerHTML]="currentHeadline ? getValueTraduct(currentHeadline.content) : '...'"></p>
     <div class="space-y-2 mb-3" *ngIf="currentHeadline">
-      <span *ngFor="let tag of currentHeadline.tags" class="bg-gray-100 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{tag}}</span>
+      <span routerLink="../../search/{{tag}}" *ngFor="let tag of currentHeadline.tags" class="bg-gray-100 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{tag}}</span>
     </div>
   </section>
   <section class="px-5 mb-2" id="title_comment">
@@ -48,7 +130,7 @@
   </section>
 </ion-content>
 
-<ion-footer collapse="fade">
+<ion-footer collapse="fade" *ngIf="currentHeadline && currentEditor">
   <ion-toolbar class="px-2">
     <textarea *ngIf="isComment" [(ngModel)]="writeComment" [rows]="isComment ? '3' : '1'" placeholder="{{'4.4-6' | translate}}" id="input-comment" class="{{isComment ? 'my-2' : ''}} bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
     <ion-buttons slot="end">

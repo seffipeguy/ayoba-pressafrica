@@ -14,15 +14,17 @@ import {
 import {
   PrintMostHeadlineCommentedComponent
 } from "../shared/print-most-headline-commented/print-most-headline-commented.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TopicsPageRoutingModule,
-    HomePageModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        TopicsPageRoutingModule,
+        HomePageModule,
+        TranslateModule
+    ],
   declarations: [TopicsPage, PrintMostHeadlineViewedComponent, PrintMostHeadlineCommentedComponent]
 })
 export class TopicsPageModule {}

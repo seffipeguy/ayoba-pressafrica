@@ -3,15 +3,15 @@
     <ion-buttons slot="start">
       <img src="assets/img/logo_symbole.svg" class="inline-block h-9 pl-4"/>
     </ion-buttons>
-    <ion-title>Topics</ion-title>
+    <ion-title>{{'1.1-13' | translate}}</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="mv" (ionChange)="segmentChanged($event)">
       <ion-segment-button value="mv">
-        <ion-label>Most viewed</ion-label>
+        <ion-label>{{'9.1' | translate}}</ion-label>
       </ion-segment-button>
       <ion-segment-button value="tmc">
-        <ion-label>The most commented</ion-label>
+        <ion-label>{{'9.2' | translate}}</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

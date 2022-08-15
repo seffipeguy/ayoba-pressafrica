@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="tabs/profil"></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Headline saved
+      {{'10.5' | translate}}
     </ion-title>
   </ion-toolbar>
   <ion-progress-bar color="secondary" *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
@@ -12,9 +12,9 @@
 
 <ion-content>
   <div class="p-3">
-    <h3 class="font-semibold text-xl">List of items</h3>
+    <h3 class="font-semibold text-xl">{{'7.2' | translate}}</h3>
     <div class="py-3" *ngIf="idHeadlines.length === 0">
-      <p>No items posted</p>
+      <p>{{'7.3' | translate}}</p>
     </div>
   </div>
 

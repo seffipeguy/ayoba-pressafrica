@@ -8,6 +8,7 @@ import { CalendarPageRoutingModule } from './calendar-routing.module';
 
 import { CalendarPage } from './calendar.page';
 import {HomePageModule} from "../home/home.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {HomePageModule} from "../home/home.module";
     FormsModule,
     IonicModule,
     CalendarPageRoutingModule,
-    HomePageModule
+    HomePageModule,
+    TranslateModule
   ],
   exports: [
   ],

@@ -10,7 +10,7 @@ export class Poll {
   choice3: string[];
   choice4: string[];
   choice5: string[];
-  top: boolean;
+  top: number;
   photo: string;
   idUser: string;
   status: number;
@@ -26,7 +26,7 @@ export class Poll {
     this.choice4 = [];
     this.choice5 = [];
     this.customResponses = [];
-    this.top = false;
+    this.top = 0;
     this.photo = '';
     this.status = 1;
     this.idCountry = [];

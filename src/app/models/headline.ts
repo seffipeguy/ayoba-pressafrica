@@ -9,6 +9,7 @@ export class Headline {
   tags: string[];
   vues: string[];
   image = '';
+  status: number;
 
   constructor(public idEditor: string, public title: string, public content: string, public dateParution: string) {
     const gid = new ToolsService();

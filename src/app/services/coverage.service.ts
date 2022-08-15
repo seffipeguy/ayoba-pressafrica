@@ -12,7 +12,7 @@ export class CoverageService {
   async getAllCoverage() {
     return new Promise<Coverage[]>((resolve, reject) => {
       // @ts-ignore
-      firebase.firestore().collection('coverage').onSnapshot(
+      firebase.firestore().collection('coverage').orderBy('priorite', 'asc').onSnapshot(
         (docRef) => {
           const result: Coverage[] = [];
           docRef.forEach(function(doc) {

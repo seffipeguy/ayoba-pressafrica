@@ -1,7 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Coverage} from '../../models/coverage';
 import {CoverageService} from '../../services/coverage.service';
-import {EditorService} from '../../services/editor.service';
 
 @Component({
   selector: 'app-print-all-coverage',
@@ -15,7 +14,7 @@ export class PrintAllCoverageComponent implements OnInit, OnChanges {
   listeAllCoverage: Coverage[] = [];
   idCat = '';
 
-  constructor(private coverageService: CoverageService, private editorService: EditorService) {
+  constructor(private coverageService: CoverageService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

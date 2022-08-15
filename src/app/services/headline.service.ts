@@ -16,7 +16,9 @@ export class HeadlineService {
         (docRef) => {
           const result: Headline[] = [];
           docRef.forEach(function(doc) {
-            result.push(doc.data() as Headline);
+            if((doc.data() as Headline).status !== 0 && (doc.data() as Headline).status !== 0) {
+              result.push(doc.data() as Headline);
+            }
           });
           resolve(result as any);
         }, (error) => {
@@ -67,7 +69,9 @@ export class HeadlineService {
         (docRef) => {
           const result: Headline[] = [];
           docRef.forEach(function(doc) {
-            result.push(doc.data() as Headline);
+            if((doc.data() as Headline).status !== 0) {
+              result.push(doc.data() as Headline);
+            }
           });
           resolve(result as any);
         }, (error) => {
@@ -92,14 +96,42 @@ export class HeadlineService {
 
   async getHeadlinesWitchText(value: string) {
     return new Promise<Headline[]>((resolve, reject) => {
-      // @ts-ignore
+      const result: Headline[] = [];
+      // Recherche dans les titres
       firebase.firestore().collection('headlines').where('title', '>=', value).where('title', '<=', value + 'uf8ff').onSnapshot(
         (docRef) => {
-          const result: Headline[] = [];
-          docRef.forEach(function(doc) {
-            result.push(doc.data() as Headline);
-          });
-          resolve(result as any);
+          for(let i=0; i<docRef.docs.length; i++) {
+            if(!result.includes(docRef.docs[i].data() as Headline) && (docRef.docs[i].data() as Headline).status !== 0) {
+              result.push(docRef.docs[i].data() as Headline);
+            }
+          }
+        }, (error) => {
+          reject(error);
+        }
+      );
+
+      // Recherche dans les tagues
+      firebase.firestore().collection('headlines').where('tags', 'array-contains',  value).onSnapshot(
+        (docRef) => {
+          for(let i=0; i<docRef.docs.length; i++) {
+            if(!result.includes(docRef.docs[i].data() as Headline) && (docRef.docs[i].data() as Headline).status !== 0) {
+              result.push(docRef.docs[i].data() as Headline);
+            }
+          }
+        }, (error) => {
+          reject(error);
+        }
+      );
+
+      // Recherche dans les descriptions
+      firebase.firestore().collection('headlines').where('content', '>=', value).where('content', '<=', value + 'uf8ff').onSnapshot(
+        (docRef) => {
+          for(let i=0; i<docRef.docs.length; i++) {
+            if(!result.includes(docRef.docs[i].data() as Headline) && (docRef.docs[i].data() as Headline).status !== 0) {
+              result.push(docRef.docs[i].data() as Headline);
+            }
+          }
+          resolve(result as Headline[]);
         }, (error) => {
           reject(error);
         }
@@ -114,7 +146,9 @@ export class HeadlineService {
         (docRef) => {
           const result: Headline[] = [];
           docRef.forEach(function(doc) {
-            result.push(doc.data() as Headline);
+            if(doc.data().status !== 0) {
+              result.push(doc.data() as Headline);
+            }
           });
           resolve(result as any);
         }, (error) => {
@@ -124,10 +158,10 @@ export class HeadlineService {
     });
   }
 
-  async getHeadlinesWitchIdEditor(idEditor: string) {
+  async getHeadlinesWitchIdEditor(idEditor: string, limit = 100) {
     return new Promise<Headline[]>((resolve, reject) => {
       // @ts-ignore
-      firebase.firestore().collection('headlines').where('idEditor', '==', idEditor).onSnapshot(
+      firebase.firestore().collection('headlines').orderBy('dateParution', 'desc').where('idEditor', '==', idEditor).limit(limit).onSnapshot(
         (docRef) => {
           const result: Headline[] = [];
           docRef.forEach(function(doc) {
@@ -148,7 +182,9 @@ export class HeadlineService {
         (docRef) => {
           const result: Headline[] = [];
           docRef.forEach(function(doc) {
-            result.push(doc.data() as Headline);
+            if(doc.data().status !== 0) {
+              result.push(doc.data() as Headline);
+            }
           });
           resolve(result as any);
         }, (error) => {

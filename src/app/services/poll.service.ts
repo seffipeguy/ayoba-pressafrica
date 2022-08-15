@@ -36,7 +36,7 @@ export class PollService {
   async getTopPolls() {
     return new Promise<Poll[]>((resolve, reject) => {
       // @ts-ignore
-      firebase.firestore().collection('polls').where('status','==', 1).where('top', '==', true).onSnapshot(
+      firebase.firestore().collection('polls').where('status','==', 1).where('top', '==', 1).onSnapshot(
         (docRef) => {
           const result: Poll[] = [];
           docRef.forEach(function(doc) {

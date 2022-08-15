@@ -9,7 +9,10 @@
     "1-7": "Select your favorite category",
     "1-8": "All",
     "1-9": "No elements",
-    "1-10": "Saved"
+    "1-10": "Saved",
+    "1-11": "Calendar",
+    "1-12": "Polls",
+    "1-13": "Topics"
   },
   "2": {
     "2-1": "Archive",
@@ -25,7 +28,7 @@
   "4": {
     "4-1": "Overview",
     "4-2": "Comments",
-    "4-3": "Comment",
+    "4-3": "Write",
     "4-4": "Your answer...",
     "4-5": "Send",
     "4-6": "Write...",
@@ -41,5 +44,48 @@
     "4-1": "Send with success",
     "4-2": "The article has been successfully added to the archive",
     "4-3": "The article has been successfully removed from the archive"
+  },
+  "6": {
+    "1": "Search result",
+    "2": "The results will be displayed here"
+  },
+  "7": {
+    "1": "Search by date",
+    "2": "List of items",
+    "3": "No items posted"
+  },
+  "8": {
+    "1": "List of polls",
+    "2": "No pools for now, please come back later",
+    "3": "Search",
+    "4": "Please be logged in to reply",
+    "5": "Vote",
+    "6": "See the results"
+  },
+  "9": {
+    "1": "Most viewed",
+    "2": "The most commented",
+	"3" : "No element for the moment"
+  },
+  "10": {
+    "1": "Update profil",
+    "2": "Language",
+	"3" : "Newspapers like",
+	"4" : "Article already viewed",
+	"5" : "My saved items",
+	"6" : "Logout",
+	"7" : "Log in with Google",
+	"8" : "SAVE",
+	"9" : "User name",
+	"10" : "SAVE",
+	"11" : "Automatic",
+	"12" : "Confirmation",
+	"13" : "Do you really want to disconnect ?",
+	"14" : "CANCEL"
+  },
+  "11": {
+	"1": "Newspapers",
+	"2": "Your Newspapers",
+	"3": "No elements"
   }
 }
