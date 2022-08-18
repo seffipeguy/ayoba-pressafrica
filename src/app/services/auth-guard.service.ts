@@ -18,9 +18,10 @@ export class AuthGuardService implements CanActivate {
     return new Promise((resolve, reject) => {
       this.authService.isAuthenticated().then(
         (docRef: boolean) => {
-          if (docRef === false)
+          /*if (docRef === false)
             {this.router.navigate(['/initialisation']);}
-          resolve(docRef);
+          resolve(docRef);*/
+          resolve(true);
         }
       );
     });

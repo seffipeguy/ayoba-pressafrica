@@ -19,7 +19,7 @@ export class SelectLanguagePage implements OnInit {
   constructor(private storageService: StorageService, private alertService: AlertService, private authService: AuthentificationService, private translateService: TranslateService, private userService: UtilisateurService) { }
 
   ngOnInit() {
-    this.currentLanguage = this.storageService.getItem('language').toLowerCase();
+    this.currentLanguage = this.storageService.getItem('language') ? this.storageService.getItem('language').toLowerCase() : '';
     this.currentLanguageSelect = this.currentLanguage;
   }
 

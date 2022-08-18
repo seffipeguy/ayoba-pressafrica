@@ -73,7 +73,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list lines="inset" class="mt-2 bg-white">
+    <ion-list lines="inset" class="mt-2 bg-white" *ngIf="user.typeInscription !== 'ayoba'">
       <ion-item (click)="confirmDeconnexion()" color="white" lines="none" detail="true" class="text-red-600">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -170,6 +170,6 @@
   </ion-grid-->
 
   <p class="py-7 text-sm text-gray-400 text-center">
-    Zen Africa - 2022 | Version 1.15.08.22-20.15
+    Zen Africa - <span (dblclick)="confirmDeconnexion()">2022</span> | Version 1.18.08.22-14.04
   </p>
 </ion-content>

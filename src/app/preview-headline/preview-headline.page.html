@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
     <ion-title class="font-medium">{{'4.4-1' | translate}}</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="!currentUser || currentUser && currentUser.typeInscription !== 'ayoba'">
       <ion-button (click)="shared()" [disabled]="isLoading" class="fs-6 font-medium">
         <ion-icon size="large" name="share-social-outline"></ion-icon>
       </ion-button>
@@ -113,7 +113,7 @@
       </ng-container>
     </h3>
     <span class="text-orange-600">
-      {{currentHeadline ? (currentHeadline.date | date : 'dd/MM/yyyy') : '...'}}
+      {{currentHeadline ? (currentHeadline.dateParution | date : 'dd/MM/yyyy') : '...'}}
     </span>
     <br>
     <small class="ion-text-left truncate text-gray-600">{{currentHeadline ? getValueTraduct(currentHeadline.title) : '...'}}</small>

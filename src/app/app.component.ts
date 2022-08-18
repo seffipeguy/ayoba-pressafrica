@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import firebase from 'firebase';
@@ -9,6 +9,7 @@ import firebase from 'firebase';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
   constructor(
     private platform: Platform,
     private translate: TranslateService
@@ -35,7 +36,6 @@ export class AppComponent {
 
       // Activation de la persistance de donnée
       firebase.firestore().enablePersistence();
-
     });
   }
 }

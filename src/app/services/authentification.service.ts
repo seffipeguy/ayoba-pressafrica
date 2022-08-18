@@ -3,7 +3,12 @@ import {Utilisateur} from '../models/utilisateur';
 import firebase from 'firebase';
 import {UtilisateurService} from './utilisateur.service';
 import {PaysService} from './pays.service';
-import {ToolsService} from "./tools.service";
+import {ToolsService} from './tools.service';
+
+declare function getMsisdn(): any;
+declare function getCountry(): any;
+declare const globalUserName: any;
+declare const avatarUser: any;
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +48,7 @@ export class AuthentificationService {
           this.isRegister(tmpInfo.email).then(
             (rep) => {
               if (!rep) {
-                const tmpUser = new Utilisateur(tmpInfo.name, '', tmpInfo.email, 1, '0000');
+                const tmpUser = new Utilisateur(tmpInfo.name, '', tmpInfo.email, 1, '0000', 'google');
                 tmpUser.photo = tmpInfo.picture;
                 this.saveToDataBase(tmpUser).then(
                   () => {
@@ -100,12 +105,14 @@ export class AuthentificationService {
       if(localStorage.getItem('id')) {
         resolve(true);
       } else {
-        if(localStorage.getItem('ayoba-tel')) {
-          localStorage.setItem('id', localStorage.getItem('ayoba-tel'));
-          this.isRegister(localStorage.getItem('ayoba-tel')).then(
+        if(getMsisdn()) {
+          localStorage.setItem('id', getMsisdn());
+          this.isRegister(getMsisdn()).then(
             (rep) => {
               if (!rep) {
-                const tmpUser = new Utilisateur(localStorage.getItem('ayoba-name'), localStorage.getItem('ayoba-tel'), '', 1, '0000');
+                const tmpUser = new Utilisateur(globalUserName ? globalUserName.slice(0, 10) : null, getMsisdn(), '', 1, '0000', 'ayoba');
+                tmpUser.idCountry = getCountry();
+                localStorage.setItem('paysSelect', getCountry());
                 this.saveToDataBase(tmpUser).then(
                   () => {
                     resolve(true);

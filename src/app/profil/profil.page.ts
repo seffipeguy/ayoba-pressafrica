@@ -4,7 +4,7 @@ import {UtilisateurService} from '../services/utilisateur.service';
 import {AlertService} from '../services/alert.service';
 import {AlertController} from '@ionic/angular';
 import {AuthentificationService} from '../services/authentification.service';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profil',

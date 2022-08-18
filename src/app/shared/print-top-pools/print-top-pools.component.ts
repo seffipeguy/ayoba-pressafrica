@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {PollService} from "../../services/poll.service";
-import {Poll} from "../../models/poll";
+import {PollService} from '../../services/poll.service';
+import {Poll} from '../../models/poll';
 
 @Component({
   selector: 'app-print-top-pools',
