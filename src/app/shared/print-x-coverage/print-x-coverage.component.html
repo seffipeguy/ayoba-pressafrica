@@ -1,7 +1,7 @@
 <h3 *ngIf="headlines.length > 0" class="font-semibold text-xl px-3 capitalize">{{currentCoverage ? getValueTraduct(currentCoverage.name) : '...'}}</h3>
 
 <ion-slides  class="ion-padding-vertical" pager="false" [options]="slideOptsNews">
-  <ion-slide *ngFor="let headline of headlines; let i = index">
+  <ion-slide *ngFor="let headline of trieTableau(headlines); let i = index">
     <app-miniature-headline [idHeadline]="headline.id"></app-miniature-headline>
   </ion-slide>
 </ion-slides>

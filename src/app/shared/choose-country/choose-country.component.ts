@@ -40,6 +40,14 @@ export class ChooseCountryComponent implements OnInit {
     );
   }
 
+  closePopOver() {
+    document.getElementById('modalPopOver').classList.add('hidden');
+  }
+
+  printPop() {
+    document.getElementById('modalPopOver').classList.remove('hidden');
+  }
+
   saveCountry(paysChoice: Pays) {
     this.isLoading = true;
     let txt2;
@@ -48,13 +56,12 @@ export class ChooseCountryComponent implements OnInit {
     });
     if(this.idPaySelect !== paysChoice.id) {
 
-      this.translate.use(paysChoice.language.toLocaleLowerCase());
-
       this.authService.isAuthenticated().then(
         (result) => {
           if(result) {
             this.userService.getCurrentUtilisateur().then(
               (data25) => {
+                data25.idCountry = paysChoice.id;
                 this.userService.updateCurrentUser(data25).then(
                   () => {
                     this.alertService.print(txt2);

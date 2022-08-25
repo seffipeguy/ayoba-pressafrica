@@ -87,5 +87,8 @@
 	"1": "Newspapers",
 	"2": "Your Newspapers",
 	"3": "No elements"
+  },
+  "12": {
+    "1" : "Polls on current news"
   }
 }

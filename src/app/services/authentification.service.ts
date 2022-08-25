@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import {UtilisateurService} from './utilisateur.service';
 import {PaysService} from './pays.service';
 import {ToolsService} from './tools.service';
+import {TranslateService} from '@ngx-translate/core';
 
 declare function getMsisdn(): any;
 declare function getCountry(): any;
@@ -15,7 +16,7 @@ declare const avatarUser: any;
 })
 export class AuthentificationService {
 
-  constructor(private toolsService: ToolsService, private userService: UtilisateurService, private paysService: PaysService) { }
+  constructor(private translate: TranslateService, private toolsService: ToolsService, private userService: UtilisateurService, private paysService: PaysService) { }
 
   signInUser(email: string, password: string) {
     return new Promise<void>((resolve, reject) => {
@@ -103,7 +104,14 @@ export class AuthentificationService {
   async isAuthenticated() {
     return new Promise<boolean>((resolve, reject) => {
       if(localStorage.getItem('id')) {
-        resolve(true);
+        this.userService.getCurrentUtilisateur().then(
+          (data) => {
+            localStorage.setItem('paysSelect', data.idCountry);
+            localStorage.setItem('language', data.language);
+            this.translate.setDefaultLang(data.language);
+            resolve(true);
+          }
+        );
       } else {
         if(getMsisdn()) {
           localStorage.setItem('id', getMsisdn());

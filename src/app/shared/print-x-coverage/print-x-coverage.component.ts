@@ -50,7 +50,9 @@ export class PrintXCoverageComponent implements OnInit, OnChanges {
                   pointe.headlineService.getHeadlinesWitchIdEditor(doc.id, 1).then(
                     (data2) => {
                       data2.forEach(function (doc2) {
-                        pointe.headlines.push(doc2);
+                        if(!pointe.headlines.includes(doc2)) {
+                          pointe.headlines.push(doc2);
+                        }
                       });
                     }
                   );
@@ -61,6 +63,14 @@ export class PrintXCoverageComponent implements OnInit, OnChanges {
         }
       }
     );
+  }
+
+  trieTableau(tableau: Headline[]) {
+    return tableau.sort((a, b) => this.convertStringDateToNumber(a.dateParution) - this.convertStringDateToNumber(b.dateParution)).reverse();
+  }
+
+  convertStringDateToNumber(date: string) {
+    return Number(date.replace(/-/g, ''));
   }
 
   ngOnChanges(changes: SimpleChanges) {
