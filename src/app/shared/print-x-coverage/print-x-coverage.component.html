@@ -1,7 +1,13 @@
-<h3 *ngIf="headlines.length > 0" class="font-semibold text-xl px-3 capitalize">{{currentCoverage ? getValueTraduct(currentCoverage.name) : '...'}}</h3>
+<h3 *ngIf="!isLoading && headlines.length > 0" class="font-semibold text-xl px-3 capitalize">{{currentCoverage ? getValueTraduct(currentCoverage.name) : '...'}}</h3>
+
+<div *ngIf="isLoading && headlines.length === 0" role="status" class="p-4 max-w-sm rounded animate-pulse md:p-6 dark:border-gray-700">
+  <div class="flex justify-center items-center mb-4 h-48 bg-gray-300 rounded dark:bg-gray-700">
+  </div>
+  <span class="sr-only">Loading...</span>
+</div>
 
 <ion-slides  class="ion-padding-vertical" pager="false" [options]="slideOptsNews">
-  <ion-slide *ngFor="let headline of trieTableau(headlines); let i = index">
+  <ion-slide *ngFor="let headline of headlines; let i = index">
     <app-miniature-headline [idHeadline]="headline.id"></app-miniature-headline>
   </ion-slide>
 </ion-slides>

@@ -21,6 +21,7 @@ export class PrintXCoverageComponent implements OnInit, OnChanges {
   currentCoverage: Coverage;
   listeEditor: Editor[] = [];
   headlines: Headline[] = [];
+  isLoading = true;
 
   slideOptsNews = {
     initialSlide: 0,
@@ -44,20 +45,21 @@ export class PrintXCoverageComponent implements OnInit, OnChanges {
             (data1) => {
               this.listeEditor = [];
               this.listeEditor = data1;
-              const pointe = this;
-              this.listeEditor.forEach(function (doc) {
-                if ((pointe.idCategory === '' || doc.idCategory === pointe.idCategory) && (!pointe.storageService.getItem('paysSelect') || doc.idCountry.includes(pointe.storageService.getItem('paysSelect')))) {
-                  pointe.headlineService.getHeadlinesWitchIdEditor(doc.id, 1).then(
+
+              const tmpHeadline: Headline[] = [];
+              for(let a=0; a<this.listeEditor.length; a++) {
+                if ((this.idCategory === '' || this.listeEditor[a].idCategory === this.idCategory) && (!this.storageService.getItem('paysSelect') || this.listeEditor[a].idCountry.includes(this.storageService.getItem('paysSelect')))) {
+                  this.headlineService.getHeadlinesWitchIdEditor(this.listeEditor[a].id, 1).then(
                     (data2) => {
-                      data2.forEach(function (doc2) {
-                        if(!pointe.headlines.includes(doc2)) {
-                          pointe.headlines.push(doc2);
-                        }
-                      });
+                      for(let b=0; b<data2.length; b++) {
+                        tmpHeadline.push(data2[b]);
+                      }
                     }
                   );
                 }
-              });
+              }
+              this.headlines = this.trieTableau(tmpHeadline);
+              this.isLoading = false;
             }
           );
         }

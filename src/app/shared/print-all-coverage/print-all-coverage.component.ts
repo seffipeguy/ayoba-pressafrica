@@ -13,6 +13,7 @@ export class PrintAllCoverageComponent implements OnInit, OnChanges {
   listeCoverage: Coverage[] = [];
   listeAllCoverage: Coverage[] = [];
   idCat = '';
+  cmp = 0;
 
   constructor(private coverageService: CoverageService) {
   }
@@ -25,7 +26,10 @@ export class PrintAllCoverageComponent implements OnInit, OnChanges {
     this.idCat = this.idCategory;
     this.coverageService.getAllCoverage().then(
       (data) => {
-        this.listeCoverage = data;
+        if(this.cmp === 0) {
+          this.cmp++;
+          this.listeCoverage = data;
+        }
       }
     );
   }
